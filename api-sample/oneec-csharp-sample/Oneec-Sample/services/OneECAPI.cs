@@ -16,7 +16,7 @@ namespace Oneec_Sample.services
     {
         //private readonly HttpClient httpClient = new HttpClient();
         // dev url
-      const  string _endpoint = "https://dev-api.oneec.ai";
+        const string _endpoint = "https://dev-api.oneec.ai";
         string _authorization = string.Empty;
         string _xsign = string.Empty;
 
@@ -39,8 +39,6 @@ namespace Oneec_Sample.services
         {
             AESKey = _AESKey;
             AESIV = _AESIV;
-           
-
         }
 
         private void SetHeader(HttpClient httpClient, string apiRoute, string body)
@@ -52,6 +50,7 @@ namespace Oneec_Sample.services
             httpClient.DefaultRequestHeaders.Add("X-sign", xSign);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+
         /// <summary>
         /// Get orders
         /// </summary>
@@ -63,8 +62,8 @@ namespace Oneec_Sample.services
                 string apiRoute = "/oapi/v1/data/merchant/orders";
                 string param = "?shipStartDate=2022-03-16T16:46:05.005Z&shipEndDate=2023-03-16T16:46:05.005Z&channelId=AyNAVo&channelSettingId=partner_unit_test&start=0&limit=20";
                 string body = "";
-                var  endpoint = $"{_endpoint}{apiRoute}{param}";
-                SetHeader(httpClient, apiRoute+ param, body);
+                var endpoint = $"{_endpoint}{apiRoute}{param}";
+                SetHeader(httpClient, apiRoute + param, body);
                 var message = httpClient.GetAsync(endpoint).Result;
                 string response = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(response);
@@ -78,7 +77,7 @@ namespace Oneec_Sample.services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
 
         }
@@ -100,14 +99,12 @@ namespace Oneec_Sample.services
                 string resultStr = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(resultStr);
                 var objectModel = JsonConvert.DeserializeObject<Response<MerchantProductData>>(resultStr);
-                
-            }
-            catch (WebException ex)
-            {
-                StreamReader sr = new StreamReader(ex.Response.GetResponseStream());
-                throw new Exception($"Error :{sr.ReadToEnd()}");
-            }
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
 
         /// <summary>
@@ -127,10 +124,9 @@ namespace Oneec_Sample.services
                 string resultStr = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(resultStr);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                StreamReader sr = new StreamReader(ex.Response.GetResponseStream());
-                throw new Exception($"Error :{sr.ReadToEnd()}");
+                Console.WriteLine(ex.StackTrace);
             }
 
         }
@@ -189,10 +185,9 @@ namespace Oneec_Sample.services
                 string resultStr = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(resultStr);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                StreamReader sr = new StreamReader(ex.Response.GetResponseStream());
-                throw new Exception($"Error :{sr.ReadToEnd()}");
+                Console.WriteLine(ex.StackTrace);
             }
 
         }
@@ -222,10 +217,9 @@ namespace Oneec_Sample.services
                 string resultStr = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(resultStr);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                StreamReader sr = new StreamReader(ex.Response.GetResponseStream());
-                throw new Exception($"Error :{sr.ReadToEnd()}");
+                Console.WriteLine(ex.StackTrace);
             }
         }
     }
