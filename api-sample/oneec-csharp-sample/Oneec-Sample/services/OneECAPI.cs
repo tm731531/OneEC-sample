@@ -14,11 +14,8 @@ namespace Oneec_Sample.services
 {
     class OneECAPI
     {
-        //private readonly HttpClient httpClient = new HttpClient();
         // dev url
         const string _endpoint = "https://dev-api.oneec.ai";
-        string _authorization = string.Empty;
-        string _xsign = string.Empty;
 
         /* Please contact the official counterpart */
         // partner key id
