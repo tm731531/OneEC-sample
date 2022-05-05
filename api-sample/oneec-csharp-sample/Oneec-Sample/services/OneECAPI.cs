@@ -16,7 +16,7 @@ namespace Oneec_Sample.services
     {
         //private readonly HttpClient httpClient = new HttpClient();
         // dev url
-      const  string _endpoint = "https://dev-api.oneec.ai";
+        const  string _endpoint = "https://dev-api.oneec.ai";
         string _authorization = string.Empty;
         string _xsign = string.Empty;
 
