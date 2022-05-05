@@ -43,16 +43,16 @@ namespace Oneec_Sample.models
         public DateTime shipDate { get; set; }
         public DateTime lastShipDate { get; set; }
         public object note { get; set; }
-        public int orderStatus { get; set; }
-        public int shipStatus { get; set; }
+        public int? orderStatus { get; set; }
+        public int? shipStatus { get; set; }
         public object refundStatus { get; set; }
         public object canceledStatus { get; set; }
         public string deliveryWay { get; set; }
         public string orderShipcodeCompany { get; set; }
         public string orderShipcode { get; set; }
-        public int distributionTemperature { get; set; }
+        public int? distributionTemperature { get; set; }
         public object paymentMethod { get; set; }
-        public int orderDataSoure { get; set; }
+        public int? orderDataSoure { get; set; }
         public DateTime insertDt { get; set; }
         public DateTime modifiedDt { get; set; }
         public object storeDeliveryInfo { get; set; }
