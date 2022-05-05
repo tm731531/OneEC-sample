@@ -16,7 +16,7 @@ namespace Oneec_Sample.services
     {
         //private readonly HttpClient httpClient = new HttpClient();
         // dev url
-        const  string _endpoint = "https://dev-api.oneec.ai";
+      const  string _endpoint = "https://dev-api.oneec.ai";
         string _authorization = string.Empty;
         string _xsign = string.Empty;
 
@@ -69,7 +69,7 @@ namespace Oneec_Sample.services
                 string response = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(response);
 
-                var objectModel = JsonConvert.DeserializeObject<Response>(response);
+                var objectModel = JsonConvert.DeserializeObject<Response<String>>(response);
                 if (objectModel.status == 200)
                 {
                     var data = CryptService.AesGcmDecryptTByBase64(AESKey, AESIV, objectModel.data);
@@ -99,7 +99,7 @@ namespace Oneec_Sample.services
                 var message = httpClient.GetAsync(endpoint).Result;
                 string resultStr = message.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(resultStr);
-                var objectModel = JsonConvert.DeserializeObject<GetProductResponse>(resultStr);
+                var objectModel = JsonConvert.DeserializeObject<Response<MerchantProductData>>(resultStr);
                 
             }
             catch (WebException ex)
@@ -144,9 +144,9 @@ namespace Oneec_Sample.services
             {
                 HttpClient httpClient = new HttpClient();
                 string apiRoute = "/oapi/v1/data/merchant/products/save";
-                var specs = new GetProductResponse.Spec[1];
-                specs[0] = new GetProductResponse.Spec() { };
-                var payload = new GetProductResponse.MerchantProduct
+                var specs = new MerchantProductSpec[1];
+                specs[0] = new MerchantProductSpec() { };
+                var payload = new MerchantProduct
                 {
                     productName = "tomtingProduct1",
                     brand = "brand",
@@ -177,7 +177,7 @@ namespace Oneec_Sample.services
                     notice = "notice",
                     insertDt = "2022-05-05T22:23:11.333Z",
                     modifiedDt = "2022-05-05T22:23:11.333Z",
-                    size = new GetProductResponse.Size() { height = 1, length = 1, weight = 2, width = 5 },
+                    size = new MerchantProductSize() { height = 1, length = 1, weight = 2, width = 5 },
                 };
                 var body = JsonConvert.SerializeObject(payload);
                 var endpoint = $"{_endpoint}{apiRoute}";
