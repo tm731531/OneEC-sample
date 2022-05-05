@@ -146,9 +146,21 @@ namespace Oneec_Sample.models
 
     public class MerchantProductSize
     {
+        /// <summary>
+        ///  (the unit is cm.) 
+        /// </summary>
         public int length { get; set; }
+        /// <summary>
+        ///  (the unit is cm.) 
+        /// </summary>
         public int width { get; set; }
+        /// <summary>
+        ///  (the unit is cm.) 
+        /// </summary>
         public int height { get; set; }
+        /// <summary>
+        ///  (the unit is KG.) 
+        /// </summary>
         public float weight { get; set; }
     }
 
