@@ -29,13 +29,8 @@ namespace Oneec_Sample.services
         // merchant account token
         string _merchantAccountToken = "";
 
-        public string AESKey { get; set; }
-        public string AESIV { get; set; }
-
         public OneECAPI()
         {
-            AESKey = _AESKey;
-            AESIV = _AESIV;
         }
 
         private void SetHeader(HttpClient httpClient, string apiRoute, string body)
@@ -68,7 +63,7 @@ namespace Oneec_Sample.services
                 var objectModel = JsonConvert.DeserializeObject<Response<String>>(response);
                 if (objectModel.status == 200)
                 {
-                    var data = CryptService.AesGcmDecryptTByBase64(AESKey, AESIV, objectModel.data);
+                    var data = CryptService.AesGcmDecryptTByBase64(_AESKey, _AESIV, objectModel.data);
                     Console.WriteLine(data);
                 }
             }
