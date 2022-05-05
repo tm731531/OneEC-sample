@@ -10,19 +10,24 @@ namespace Oneec_Sample
     {
         static void Main(string[] args)
         {
-            string apiRoute = "/oapi/v1/data/merchant/orders";
-            string param = "?shipStartDate=2022-03-16T16:46:05.005Z&shipEndDate=2023-03-16T16:46:05.005Z&channelId=AyNAVo&channelSettingId=partner_unit_test&start=0&limit=2";
-            string body = "";
+            //  Initialize settings
+            OneECAPI oneECAPI = new OneECAPI();
+            ////  Get orders
+            //oneECAPI.GetOrderList();
 
-            OneECAPI oneECAPI = new OneECAPI(apiRoute + param, body);
-            OrderList orderList = oneECAPI.GetOrderList();
-            if (orderList != null)
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(orderList));
-            }
-            else {
-                Console.WriteLine(" Error ");
-            }
+            //// Get the products
+            //oneECAPI.GetProducts();
+
+            ////  Create or modify product
+            //oneECAPI.SaveProduct();
+
+            //// Get the combination products
+            //oneECAPI.GetMerchantCombinationProductList();
+
+            ////  Create or modify combination products
+            //oneECAPI.SaveProductCombinations();
+
+
         }
     }
 }
