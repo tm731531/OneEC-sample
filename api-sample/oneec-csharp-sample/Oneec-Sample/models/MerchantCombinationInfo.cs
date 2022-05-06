@@ -13,7 +13,7 @@ namespace Oneec_Sample.models
         public String productName;
 
         /// <summary>
-        /// 料號
+        /// 貨號
         /// </summary>
         public String itemNumber;
 

@@ -7,7 +7,7 @@ namespace Oneec_Sample.models
     public class MerchantCombinationProduct
     {
         /// <summary>
-        /// 料號
+        /// 貨號
         /// </summary>
         public String itemNumber;
 

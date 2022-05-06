@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace Oneec_Sample.services
 
@@ -21,14 +22,13 @@ namespace Oneec_Sample.services
         // partner key id
         string _partnerKeyId = "";
         // aes key 
-        string _AESKey = "=";
+        string _AESKey = "";
         // aes iv
         string _AESIV = "";
         // hash key
         string _hashKey = "";
         // merchant account token
         string _merchantAccountToken = "";
-
         public OneECAPI()
         {
         }
@@ -83,9 +83,14 @@ namespace Oneec_Sample.services
             {
                 HttpClient httpClient = new HttpClient();
                 string apiRoute = "/oapi/v1/data/merchant/products";
+                string param = "";
+                //param = param+"?";
+                //param = param + "&limit=2";      // page size default 10
+                //param = param + "&start=9";      // start default 0
+                //param = param + "&itemNumber=";  // product's number
                 string body = "";
-                var endpoint = $"{_endpoint}{apiRoute}";
-                SetHeader(httpClient, apiRoute, body);
+                var endpoint = $"{_endpoint}{apiRoute}{param}";
+                SetHeader(httpClient, apiRoute + param, body);
 
                 var message = httpClient.GetAsync(endpoint).Result;
                 string resultStr = message.Content.ReadAsStringAsync().Result;
@@ -108,9 +113,14 @@ namespace Oneec_Sample.services
             {
                 HttpClient httpClient = new HttpClient();
                 string apiRoute = "/oapi/v1/data/merchant/product_combinations";
+                string param = "";
+                //param = param+"?";
+                //param = param + "&limit=2";      // page size default 10
+                //param = param + "&start=9";      // start default 0
+                //param = param + "&itemNumber=";  // product's number
                 string body = "";
-                var endpoint = $"{_endpoint}{apiRoute}";
-                SetHeader(httpClient, apiRoute, body);
+                var endpoint = $"{_endpoint}{apiRoute}{param}";
+                SetHeader(httpClient, apiRoute+ param, body);
 
                 var message = httpClient.GetAsync(endpoint).Result;
                 string resultStr = message.Content.ReadAsStringAsync().Result;

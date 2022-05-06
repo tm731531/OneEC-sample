@@ -93,7 +93,7 @@ namespace Oneec_Sample.models
         /// <summary>
         /// 原產地
         /// </summary>
-        public object originCountry { get; set; }
+        public string originCountry { get; set; }
         /// <summary>
         /// 副標
         /// </summary>
@@ -149,15 +149,15 @@ namespace Oneec_Sample.models
         /// <summary>
         ///  (the unit is cm.) 
         /// </summary>
-        public int length { get; set; }
+        public float length { get; set; }
         /// <summary>
         ///  (the unit is cm.) 
         /// </summary>
-        public int width { get; set; }
+        public float width { get; set; }
         /// <summary>
         ///  (the unit is cm.) 
         /// </summary>
-        public int height { get; set; }
+        public float height { get; set; }
         /// <summary>
         ///  (the unit is KG.) 
         /// </summary>
