@@ -30,7 +30,16 @@ public class GetOrderList {
     }
 
     public void getData() throws Exception {
-        String param = "?shipStartDate=2022-03-16T16:46:05.005Z&shipEndDate=2023-03-16T16:46:05.005Z&channelId=AyNAVo&channelSettingId=partner_unit_test&start=0&limit=2";
+        String param = "";
+        //param = param+"?";
+        //param = param + "&shipStartDate=2022-03-16T16:46:05.005Z";      // ship start date  default ""
+        //param = param + "&shipEndDate=2023-03-16T16:46:05.005Z";        // ship end date  default ""
+        //param = param + "&orderCreateDate=2022-03-16T16:46:05.005Z";    // order create date  default ""
+        //param = param + "&orderStatus=";                                //
+        //param = param + "&channelId=AyNAVo";                            // channel id
+        //param = param + "&channelSettingId=partner_unit_test";          // platform
+        //param = param + "&start=0";                                     // start default 0
+        //param = param + "&limit=20";                                    // page size default 10
         String endpoint = _domain + _apiUrl + param;
         String encryptedData = CryptHelper.aesGcmEncryptToBase64(_aesKey, _aesIv, null);
         System.out.println("encryptedData: " + encryptedData);
