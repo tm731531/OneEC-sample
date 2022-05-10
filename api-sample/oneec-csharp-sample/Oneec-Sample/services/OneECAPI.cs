@@ -156,33 +156,20 @@ namespace Oneec_Sample.services
                 specs[0] = new MerchantProductSpec() { };
                 var payload = new MerchantProduct
                 {
-                    productName = "tomtingProduct1",
-                    brand = "brand",
-                    supplier = "supplier",
+                    productName = "TBSProduct",     
+                    brand = "The Body Shop 美體小舖",                    
+                    supplier = "美雅國際",              
                     condition = 0,
                     goodType = 1,
                     distributionTemperature = 0,
-                    isPrepareLongStocking = true,
                     isFragile = false,
-                    isCombinationItem = false,
-                    currency = "TWD",
-                    safetyQty = 1,
-                    overtakeQty = 1,
-                    eanCode = "eanCode",
-                    subTitle = "subTitle",
                     specs = specs,
                     suggestPrice = 500,
                     normalPrice = 400,
                     cost = 300,
                     qty = 50,
                     isCanOvertakeOrder = true,
-                    itemNumber = "12345612342",
-                    specDescription = "specDescription",
-                    instructions = "instructions",
-                    shortDescription1 = "shortDescription1",
-                    shortDescription2 = "shortDescription2",
-                    shortDescription3 = "shortDescription3",
-                    notice = "notice",
+                    itemNumber = "TBS12345",
                     insertDt = "2022-05-05T22:23:11.333Z",
                     modifiedDt = "2022-05-05T22:23:11.333Z",
                     size = new MerchantProductSize() { height = 1, length = 1, weight = 2, width = 5 },
@@ -214,9 +201,9 @@ namespace Oneec_Sample.services
                 HttpClient httpClient = new HttpClient();
                 string apiRoute = "/oapi/v1/data/merchant/product_combinations/save";
                 var data = new MerchantCombinationProduct();
-                data.itemNumber = "12345612342";
-                data.addCombinationInfo(new MerchantCombinationInfo() { itemNumber = "070105022", cost = 33, price = 3, productName = "TomTing1", qty = 1 });
-                data.addCombinationInfo(new MerchantCombinationInfo() { itemNumber = "0696204", cost = 333, price = 6, productName = "TomTing2", qty = 2 });
+                data.itemNumber = "1234533";
+                data.addCombinationInfo(new MerchantCombinationInfo() { itemNumber = "070105022", cost = 33, price = 3, productName = "TBS-A", qty = 1 });
+                data.addCombinationInfo(new MerchantCombinationInfo() { itemNumber = "0696204", cost = 333, price = 6, productName = "TBS-B", qty = 2 });
                 data.modifiedDt = "2022-05-05T22:23:11.333Z";
                 data.insertDt = "2022-05-05T22:23:11.333Z";
                 var body = JsonConvert.SerializeObject(data);
