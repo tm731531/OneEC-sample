@@ -27,32 +27,19 @@ public class GetOrderList {
     private static final String _merchantAccessToken = ""; // Please contact the official counterpart
     private static final String _token = _partnerKeyID + "." + _merchantAccessToken;
 
-    public static void trymain(String[] args) throws Exception{
-
-        
-        var aesKey = "A123456789012345A123456789012345";
-        var aesIv = "B123456789012345";
-        var cipherText = "s/zbKa8wB1HeTuODWwNj9kacDX0=";
-        var keySpec = CryptHelper.getSecretKeySpec(aesKey);
-        var rc =  CryptHelper.decrypt(keySpec, aesIv, "AES/GCM/NoPadding", cipherText);
-        System.out.println(rc);
-
-
-
-    }
 
     public static void main(String[] args) {
-
-        // GetOrderList getOrderList = new GetOrderList();
+        GetOrderList getOrderList = new GetOrderList();
         try {
-            // getOrderList.getData();
-            trymain(args);
+            getOrderList.getData();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void getData() throws Exception {
+        String cipherMode = "AES/GCM/NoPadding";
+
         String param = "";
         //param = param+"?";
         //param = param + "&shipStartDate=2022-03-16T16:46:05.005Z";      // ship start date  default ""
@@ -64,7 +51,7 @@ public class GetOrderList {
         //param = param + "&start=0";                                     // start default 0
         //param = param + "&limit=20";                                    // page size default 10
         String endpoint = _domain + _apiUrl + param;
-        String encryptedData = CryptHelper.aesGcmEncryptToBase64(_aesKey, _aesIv, null);
+        String encryptedData = CryptHelper.encrypt(CryptHelper.getSecretKeySpec(_aesKey), _aesIv, cipherMode, null);
         System.out.println("encryptedData: " + encryptedData);
 
         HttpHeaders headers = new HttpHeaders();
@@ -81,7 +68,7 @@ public class GetOrderList {
 
         Response response = new JsonMapper().readValue(entity.getBody(), typeReference);
         if (response.status == HttpStatus.OK.value()) {
-            String decryptedData = CryptHelper.aesGcmDecryptByBase64(_aesKey, _aesIv, response.data);
+            String decryptedData = CryptHelper.encrypt(CryptHelper.getSecretKeySpec(_aesKey), _aesIv, cipherMode, response.data);
             System.out.println("decryptedData: " + decryptedData);
         }
     }

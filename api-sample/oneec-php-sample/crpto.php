@@ -53,13 +53,96 @@ class OneECEncryptor {
 }
 
 
+
+
+
+
+// https://drive.google.com/drive/folders/1u4lh7NleX08ardH7jhI17EfYhIGeysHQ
+$domain = "https://dev-api.oneec.ai";
+$url = $domain."/oapi/v1/data/merchant/orders";
+$partnerKeyId = "l011cx";
+$hashKey = "SkeF22b3OhvSkG8kMRxzlSUExV2AUwTd";
+$merchantAccountToken = "QkNk+7SnB7CPbgX84Oi7awB2rUyC4QFTkW4PX/hL2dvhwG1Ll+81fEs3jLsOtWSf5AUDooKYn7jfTfsjhVPYEnYFEl7uiqbSIvSChAtoTbE9j9c4HQeoj+XODTqTRnTaXLyF7N6/HRbz7aYhFqCDLoSmOSf/bnSyyg/KxBFQ1vfULnfaD+9HYqlN";
 $aesKey = "A123456789012345A123456789012345";
 $aesIv = "B123456789012345";
-$data = "test";
-echo base64_encode($aesKey)."\n";
-echo base64_encode($aesIv)."\n";
-echo OneECEncryptor::encrypt($data, $aesKey, $aesIv);
 
 
+
+$jsonBody = <<<DOC
+[
+    {
+        "orderSn": "EC-123456789",
+        "orderStatus": 1,
+        "orderCreateDt": "2022-02-21T01:05:13.980Z",
+        "lastShipDate": "2022-02-24T01:05:13.980Z",
+        "totalPrice": 1000,
+        "currency": "TWD",
+        "orderNote": "宅配測試用訂單,請勿出貨",
+        "buyerName": "buyer name",
+        "buyerPhone": "0912345678",
+        "recipientName": "buyer name",
+        "recipientMobile": "0922345678",
+        "recipientPhone": "0932345678",
+        "recipientAddressLine1": " (114)台北市內湖區瑞光路 318 號",
+        "distributionTemperature": 0,
+        "deliveryWay": "0.0",
+        "products": [
+            {
+                "supplierPartNumber": "128117204",
+                "productNumber": "16892447",
+                "productName": "測試用商品",
+                "qty": 2,
+                "cost": 350,
+                "price": 500
+            }
+        ]
+    },
+    {
+        "orderSn": "EC-123456790",
+        "orderStatus": 1,
+        "orderCreateDt": "2022-02-21T01:05:13.980Z",
+        "lastShipDate": "2022-02-24T01:05:13.980Z",
+        "totalAmount": 250,
+        "currency": "TWD",
+        "orderNote": "超取測試用訂單,請勿出貨",
+        "buyerName": "buyer name",
+        "buyerPhone": "0912345678",
+        "recipientName": "recipient name",
+        "recipientMobile": "0922345678",
+        "recipientPhone": "0932345678",
+        "distributionTemperature": 0,
+        "deliveryWay": "0.0",
+        "products": [
+                {
+                    "supplierPartNumber": "128117204",
+                    "productNumber": "16892447",
+                    "productName": "測試用商品",
+                    "qty": 1,
+                    "cost": 175,
+                    "price": 250
+                }
+            ]
+        }
+    ]
+DOC;
+
+$encryptedBody = OneECEncryptor::encrypt($jsonBody, $aesKey, $aesIv);
+$xSign =  $url.$bodyhash.$hashKey;
+$sha256_xSign =  hash('sha256', $xSign);
+
+$options = array(
+    'http' => array(
+        'method' => 'POST',
+        'header' => array(
+            "Content-type: application/json; charset=utf-8 \r\n".
+            "Authorization: Bearer $partnerKeyId.$merchantAccountToken \r\n".
+            "X-sign: $sha256_xSign"
+        ),
+        'content' => $encryptedBody,
+    )
+);
+$context = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+echo $result;
 
 ?>
