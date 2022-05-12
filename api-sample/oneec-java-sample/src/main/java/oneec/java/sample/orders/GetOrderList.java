@@ -1,14 +1,21 @@
 package oneec.java.sample.orders;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import oneec.java.sample.helper.CryptHelper;
-import oneec.java.sample.models.Response;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import oneec.java.sample.helper.CryptHelper;
+import oneec.java.sample.models.Response;
 
 public class GetOrderList {
     private static final String _domain = "https://dev-api.oneec.ai"; // Dev url
@@ -20,6 +27,7 @@ public class GetOrderList {
     private static final String _merchantAccessToken = ""; // Please contact the official counterpart
     private static final String _token = _partnerKeyID + "." + _merchantAccessToken;
 
+
     public static void main(String[] args) {
         GetOrderList getOrderList = new GetOrderList();
         try {
@@ -30,6 +38,8 @@ public class GetOrderList {
     }
 
     public void getData() throws Exception {
+        String cipherMode = "AES/GCM/NoPadding";
+
         String param = "";
         //param = param+"?";
         //param = param + "&shipStartDate=2022-03-16T16:46:05.005Z";      // ship start date  default ""
@@ -41,7 +51,7 @@ public class GetOrderList {
         //param = param + "&start=0";                                     // start default 0
         //param = param + "&limit=20";                                    // page size default 10
         String endpoint = _domain + _apiUrl + param;
-        String encryptedData = CryptHelper.aesGcmEncryptToBase64(_aesKey, _aesIv, null);
+        String encryptedData = CryptHelper.encrypt(CryptHelper.getSecretKeySpec(_aesKey), _aesIv, cipherMode, null);
         System.out.println("encryptedData: " + encryptedData);
 
         HttpHeaders headers = new HttpHeaders();
@@ -58,7 +68,7 @@ public class GetOrderList {
 
         Response response = new JsonMapper().readValue(entity.getBody(), typeReference);
         if (response.status == HttpStatus.OK.value()) {
-            String decryptedData = CryptHelper.aesGcmDecryptByBase64(_aesKey, _aesIv, response.data);
+            String decryptedData = CryptHelper.encrypt(CryptHelper.getSecretKeySpec(_aesKey), _aesIv, cipherMode, response.data);
             System.out.println("decryptedData: " + decryptedData);
         }
     }
