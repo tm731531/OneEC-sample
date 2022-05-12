@@ -1,7 +1,7 @@
 package oneec.java.sample.models;
 
-public class Response {
+public class CipherResponse {
     public int status;
     public String message;
-    public Object data;
+    public String data;
 }
