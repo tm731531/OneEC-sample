@@ -1,14 +1,21 @@
 package oneec.java.sample.orders;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import oneec.java.sample.helper.CryptHelper;
-import oneec.java.sample.models.Response;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import oneec.java.sample.helper.CryptHelper;
+import oneec.java.sample.models.Response;
 
 public class GetOrderList {
     private static final String _domain = "https://dev-api.oneec.ai"; // Dev url
@@ -20,10 +27,26 @@ public class GetOrderList {
     private static final String _merchantAccessToken = ""; // Please contact the official counterpart
     private static final String _token = _partnerKeyID + "." + _merchantAccessToken;
 
+    public static void trymain(String[] args) throws Exception{
+
+        
+        var aesKey = "A123456789012345A123456789012345";
+        var aesIv = "B123456789012345";
+        var cipherText = "s/zbKa8wB1HeTuODWwNj9kacDX0=";
+        var keySpec = CryptHelper.getSecretKeySpec(aesKey);
+        var rc =  CryptHelper.decrypt(keySpec, aesIv, "AES/GCM/NoPadding", cipherText);
+        System.out.println(rc);
+
+
+
+    }
+
     public static void main(String[] args) {
-        GetOrderList getOrderList = new GetOrderList();
+
+        // GetOrderList getOrderList = new GetOrderList();
         try {
-            getOrderList.getData();
+            // getOrderList.getData();
+            trymain(args);
         } catch (Exception e) {
             e.printStackTrace();
         }
