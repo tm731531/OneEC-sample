@@ -59,12 +59,12 @@ class OneECEncryptor {
 
 // https://drive.google.com/drive/folders/1u4lh7NleX08ardH7jhI17EfYhIGeysHQ
 $domain = "https://dev-api.oneec.ai";
-$url = $domain."/oapi/v1/data/merchant/orders";
+$url = "/oapi/v1/data/merchant/orders";
 $partnerKeyId = "l011cx";
 $hashKey = "SkeF22b3OhvSkG8kMRxzlSUExV2AUwTd";
 $merchantAccountToken = "QkNk+7SnB7CPbgX84Oi7awB2rUyC4QFTkW4PX/hL2dvhwG1Ll+81fEs3jLsOtWSf5AUDooKYn7jfTfsjhVPYEnYFEl7uiqbSIvSChAtoTbE9j9c4HQeoj+XODTqTRnTaXLyF7N6/HRbz7aYhFqCDLoSmOSf/bnSyyg/KxBFQ1vfULnfaD+9HYqlN";
-$aesKey = "A123456789012345A123456789012345";
-$aesIv = "B123456789012345";
+$aesKey = "HLWX8IZir9wZIlhruFzLLd2oG8jy1NTZ";
+$aesIv = "2vIaD0Lqi6mo0sEQ";
 
 
 
@@ -127,7 +127,7 @@ $jsonBody = <<<DOC
 DOC;
 
 $encryptedBody = OneECEncryptor::encrypt($jsonBody, $aesKey, $aesIv);
-$xSign =  $url.$bodyhash.$hashKey;
+$xSign =  $url.$encryptedBody.$hashKey;
 $sha256_xSign =  hash('sha256', $xSign);
 
 $options = array(
@@ -142,7 +142,7 @@ $options = array(
     )
 );
 $context = stream_context_create($options);
-$result = file_get_contents($url, false, $context);
+$result = file_get_contents($domain.$url, false, $context);
 echo $result;
 
 ?>
