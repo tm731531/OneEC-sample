@@ -49,7 +49,7 @@ namespace Oneec_Sample.models
         /// <summary>
         /// 是否為組合商品
         /// </summary>
-        public object isCombinationItem { get; set; }
+        public bool  isCombinationItem { get; set; }
         /// <summary>
         /// 貨號
         /// </summary>
