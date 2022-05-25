@@ -95,7 +95,7 @@ namespace Oneec_Sample.services
                 string apiRoute = "/oapi/v1/data/merchant/products";
                 string param = "";
                 //param = param+"?";
-                //param = param + "&limit=2";      // page size default 10
+                //param = param + "&limit=2";      // page size default 10   ,   max=100
                 //param = param + "&start=9";      // start default 0
                 //param = param + "&itemNumber=";  // product's number
                 string body = "";
@@ -125,7 +125,7 @@ namespace Oneec_Sample.services
                 string apiRoute = "/oapi/v1/data/merchant/product_combinations";
                 string param = "";
                 //param = param+"?";
-                //param = param + "&limit=2";      // page size default 10
+                //param = param + "&limit=2";      // page size default 10   ,   max=100
                 //param = param + "&start=9";      // start default 0
                 //param = param + "&itemNumber=";  // product's number
                 string body = "";
