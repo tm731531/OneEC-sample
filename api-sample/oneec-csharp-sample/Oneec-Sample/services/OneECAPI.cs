@@ -221,5 +221,27 @@ namespace Oneec_Sample.services
                 Console.WriteLine(ex.StackTrace);
             }
         }
+        
+        public void GetChannels()
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                string apiRoute = "/oapi/v1/data/merchant/channels/actived";
+                string param = "";
+                Console.WriteLine(param);
+                string body = "";
+                var endpoint = $"{_endpoint}{apiRoute}{param}";
+                SetHeader(httpClient, apiRoute + param, body);
+                var message = httpClient.GetAsync(endpoint).Result;
+                string response = message.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(response);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
     }
 }
